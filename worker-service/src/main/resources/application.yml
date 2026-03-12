@@ -1,0 +1,43 @@
+server:
+  port: 0  # Random port — workers don't need a fixed port
+
+spring:
+  application:
+    name: worker-service
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: job-workers
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+# Job processing configuration
+job:
+  retry:
+    max-attempts: ${JOB_MAX_RETRIES:3}
+    base-backoff-ms: ${JOB_BASE_BACKOFF_MS:1000}
+  dlq:
+    topic: ${JOB_DLQ_TOPIC:job_queue_dlq}
+
+# Actuator + Prometheus
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: worker-service
+
+logging:
+  level:
+    com.jobqueue: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

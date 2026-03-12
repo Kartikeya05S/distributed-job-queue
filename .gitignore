@@ -1,0 +1,42 @@
+# Compiled class files
+*.class
+
+# Maven build output
+**/target/
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# IDE and tool config
+.idea/
+.claude/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+.factorypath
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment / secrets
+.env
+*.env.local
+
+# Redis dump
+dump.rdb
+
+# Grafana local data
+grafana-data/
